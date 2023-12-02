@@ -15,7 +15,6 @@ function TestRegister() {
                 email,
                 password,
             });
-            console.log(name)
         } catch (error) {}
     };
     return (

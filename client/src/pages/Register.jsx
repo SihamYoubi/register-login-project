@@ -19,6 +19,7 @@ const Register = () => {
                 email,   
                 password,
             });
+            
             if (data.error) {
                 toast.error(data.error);
             } else {
@@ -27,9 +28,10 @@ const Register = () => {
                 navigate('/login')
             }
         } catch (error) {
-            
+            console.log(error)
         }
     };
+
     return (
         <>
             <form onSubmit={registerUser}>
