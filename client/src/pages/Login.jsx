@@ -20,7 +20,7 @@ const Login = () => {
                 <label>Password</label>
                 <input type='password' placeholder='enter password' value = {data.password} onChange = {(e) => setData({...data , password: e.target.value})} />
 
-                <button type='button'>Log In </button>
+                <button type='submit'>Log In </button>
             </form>
         </>
     );
