@@ -16,57 +16,80 @@ const Register = () => {
         try {
             const { data } = await axios.post('/register', {
                 name,
-                email,   
+                email,
                 password,
             });
-            
+
             if (data.error) {
                 toast.error(data.error);
             } else {
                 setData({});
                 toast.success('Login successful , welcome');
-                navigate('/login')
+                navigate('/login');
             }
         } catch (error) {
-            console.log(error)
+            console.log(error);
         }
     };
 
     return (
         <>
             <form onSubmit={registerUser}>
-                <label>Name</label>
-                {/* changing the name to e.target.value */}
-                <input
-                    type='text'
-                    placeholder='enter name'
-                    value={data.name}
-                    onChange={(e) => {
-                        setData({ ...data, name: e.target.value });
-                    }}
-                />
+                <div className=' container flex flex-col gap-5 p-6 absolute top-48  left-72   mx-40   max-w-xl    '>
+                    <div>
+                        <label>Name</label>
 
-                <label>Email</label>
-                <input
-                    type='email'
-                    placeholder='enter email'
-                    value={data.email}
-                    onChange={(e) =>
-                        setData({ ...data, email: e.target.value })
-                    }
-                />
+                        <div className=' border-2 border-black rounded-md'>
+                            {/* changing the name to e.target.value */}
+                            <input
+                                type='text'
+                                placeholder='enter name'
+                                value={data.name}
+                                onChange={(e) => {
+                                    setData({ ...data, name: e.target.value });
+                                }}
+                            />
+                        </div>
+                    </div>
 
-                <label>Password</label>
-                <input
-                    type='password'
-                    placeholder='enter password'
-                    value={data.password}
-                    onChange={(e) =>
-                        setData({ ...data, password: e.target.value })
-                    }
-                />
+                    <div>
+                        <label>Email</label>
+                        <div className=' border-2 border-black rounded-md '>
+                            <input
+                                type='email'
+                                placeholder='enter email'
+                                value={data.email}
+                                onChange={(e) =>
+                                    setData({ ...data, email: e.target.value })
+                                }
+                            />
+                        </div>
+                    </div>
 
-                <button type='submit'>Submit</button>
+                    <div>
+                        <label>Password</label>
+                        <div className=' border-2 border-black rounded-md '>
+                            <input
+                                type='password'
+                                placeholder='enter password'
+                                value={data.password}
+                                onChange={(e) =>
+                                    setData({
+                                        ...data,
+                                        password: e.target.value,
+                                    })
+                                }
+                            />
+                        </div>
+                    </div>
+
+                    <button
+                        type='submit'
+                        className='bg-black text-white w-24 rounded-md mt-4 p-1'
+                    >
+                        Submit
+                    </button>
+                </div>
             </form>
         </>
     );
