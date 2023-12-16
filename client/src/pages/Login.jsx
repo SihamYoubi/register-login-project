@@ -23,8 +23,8 @@ const Login = () => {
                 toast.error(data.error);
             } else {
                 setData({});
-                navigate('/');
-                // toast.success('login successfully')
+                navigate('/profile');
+                toast.success('login successfully');
             }
         } catch (error) {
             console.log(error);
@@ -32,28 +32,44 @@ const Login = () => {
     };
     return (
         <>
-            <form onSubmit={loginUser}>
-                <label>email</label>
-                <input
-                    type='email'
-                    placeholder='enter email'
-                    value={data.email}
-                    onChange={(e) => {
-                        setData({ ...data, email: e.target.value });
-                    }}
-                />
+            <form
+                onSubmit={loginUser}
+                className=' container mx-4   absolute top-36 '
+            >
+                <div className='flex flex-col p-6 items-center' >
+                    <label>email</label>
+                    
+                        <input
+                            className=' border-2 border-black rounded-md  w-[800px]'
+                            type='email'
+                            placeholder='enter email'
+                            value={data.email}
+                            onChange={(e) =>
+                                setData({ ...data, email: e.target.value })
+                            }
+                        />
+                
 
-                <label>Password</label>
-                <input
-                    type='password'
-                    placeholder='enter password'
-                    value={data.password}
-                    onChange={(e) => {
-                        setData({ ...data, password: e.target.value });
-                    }}
-                />
+                    <label>Password</label>
+                    
+                        <input
+                            className=' border-2 border-black rounded-md w-[800px]'
+                            type='password'
+                            placeholder='enter password'
+                            value={data.password}
+                            onChange={(e) =>
+                                setData({ ...data, password: e.target.value })
+                            }
+                        />
+                    
 
-                <button type='submit'>Log In </button>
+                    <button
+                        type='submit'
+                        className='bg-black text-white w-24 rounded-md mt-4'
+                    >
+                        Log In{' '}
+                    </button>
+                </div>
             </form>
         </>
     );

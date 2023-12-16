@@ -1,9 +1,7 @@
 const User = require('../models/userModel');
 const { hashPassword, comparePassword } = require('../helpers/auth');
-
-const test = (req, res) => {
-    res.json('test is working');
-};
+const jwt = require('jsonwebtoken');
+const JWT_SECRET = require('../config/env').JWT_SECRET;
 
 const registerUser = async (req, res) => {
     try {
@@ -15,7 +13,7 @@ const registerUser = async (req, res) => {
             });
         }
 
-        if (!password) {
+        if (!password || password.length <= 6) {
             return res.json({
                 error: 'password is required and should be at least 6 charachters long',
             });
@@ -32,7 +30,7 @@ const registerUser = async (req, res) => {
         const user = await User.create({
             name,
             email,
-            password : hashedPassword,
+            password: hashedPassword,
         });
 
         return res.json(user);
@@ -41,29 +39,51 @@ const registerUser = async (req, res) => {
     }
 };
 
-const loginUser = async(req , res) => {
- try {
+const loginUser = async (req, res) => {
+    try {
+        const { email, password } = req.body;
+        const user = await User.findOne({ email });
+        if (!user) {
+            return res.json({ error: 'Invalid Credentials' });
+        }
 
-     const {email , password} = req.body
-     const user = await User.findOne({email})
-     console.log(user)
-     if(!user){
-        return res.json({error : 'No user found' })
-     }
+        const validPassword = await comparePassword(password, user.password);
+        if (!validPassword) {
+            return res.json({ error: 'Invalid credentials' });
+        }
 
-    validPassword = await comparePassword(password , user.password)
-    if(validPassword) {
-        return res.json('password match')
+        //the info that we are going to sent through out the cookie
+        const token = jwt.sign(
+            { email: user.email, id: user._id , name: user.name },
+            JWT_SECRET,
+            { expiresIn: '1d' },
+            (err, token) => {
+                //for access_login
+
+                //put the token on the cookies that exist in the borwser , so for every request from the user this cookie will be sent with the request of the user
+                // to verify the user authorization
+                res.cookie('token', token).json(user);
+            }
+        );
+        return token;
+    } catch (error) {
+        console.log(error);
     }
+};
 
- } catch (error) {
-    console.log(error)
- }
-
-}
-
+const getProfile = (req, res) => {
+    const { token } = req.cookies;
+    if (token) {
+        jwt.verify(token, JWT_SECRET, { expiresIn: '1d' }, (err, user) => {
+            if (err) throw err;
+            return res.json(user);
+        });
+    } else {
+        res.json({ message: 'no token found' });
+    }
+};
 module.exports = {
-    test,
     registerUser,
-    loginUser
+    loginUser,
+    getProfile,
 };
