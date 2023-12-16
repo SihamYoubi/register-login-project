@@ -82,8 +82,13 @@ const getProfile = (req, res) => {
         res.json({ message: 'no token found' });
     }
 };
+
+const logout = (req , res) => {
+    return res.clearCookie("token").json({message:'logout successfuly'})
+};
 module.exports = {
     registerUser,
     loginUser,
     getProfile,
+    logout,
 };
