@@ -35,15 +35,15 @@ const Register = () => {
     return (
         <>
             <form onSubmit={registerUser}>
-                <div className=' container flex flex-col gap-5 p-6 absolute top-48  left-72   mx-40   max-w-xl    '>
+                <div className='bg-yellow-50 container flex flex-col gap-5 p-6 absolute top-48  left-72   mx-40   max-w-xl    '>
                     <div>
                         <label>Name</label>
 
-                        <div className=' border-2 border-black rounded-md'>
+                        <div >
                             {/* changing the name to e.target.value */}
-                            <input
+                            <input className='border-2 border-black rounded-md container'
                                 type='text'
-                                placeholder='enter name'
+                                placeholder='Enter name'
                                 value={data.name}
                                 onChange={(e) => {
                                     setData({ ...data, name: e.target.value });
@@ -52,10 +52,11 @@ const Register = () => {
                         </div>
                     </div>
 
-                    <div>
+                    <div >
                         <label>Email</label>
-                        <div className=' border-2 border-black rounded-md '>
+                        <div  >
                             <input
+                                className=' border-2 border-black rounded-md container'
                                 type='email'
                                 placeholder='enter email'
                                 value={data.email}
@@ -68,8 +69,9 @@ const Register = () => {
 
                     <div>
                         <label>Password</label>
-                        <div className=' border-2 border-black rounded-md '>
+                        <div>
                             <input
+                            className=' border-2 border-black rounded-md container'
                                 type='password'
                                 placeholder='enter password'
                                 value={data.password}

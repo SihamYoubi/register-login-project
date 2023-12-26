@@ -33,12 +33,13 @@ const Login = () => {
     return (
         <>
             <form onSubmit={loginUser}>
-                <div className=' container flex flex-col gap-5 p-6 absolute top-48  left-72   mx-40   max-w-xl    '>
+                <div className=' bg-yellow-50 container flex flex-col gap-5 p-6 absolute top-48  left-72   mx-40   max-w-xl    '>
                     <div>
                         <label>Email</label>
 
-                        <div className=' border-2 border-black rounded-md'>
+                        <div >
                             <input
+                                className='border-2 border-black rounded-md container'
                                 type='email'
                                 placeholder='enter email'
                                 value={data.email}
@@ -52,8 +53,9 @@ const Login = () => {
                     <div>
                         <label>Password</label>
 
-                        <div className=' border-2 border-black rounded-md '>
+                        <div >
                             <input
+                            className='border-2 border-black rounded-md container'
                                 type='password'
                                 placeholder='enter password'
                                 value={data.password}
