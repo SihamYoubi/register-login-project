@@ -79,7 +79,7 @@ const getProfile = (req, res) => {
             return res.json(user);
         });
     } else {
-        res.json({ message: 'no token found' });
+        res.send('null');
     }
 };
 
