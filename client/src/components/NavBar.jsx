@@ -3,11 +3,10 @@ import { useContext } from 'react';
 import { UserContext } from '../context/UserContext';
 const NavBar = () => {
     const { user } = useContext(UserContext);
-    console.log(user);
 
     return (
         <div>
-            {user===null ? (
+            {user === null ? (
                 <nav className='bg-fuchsia-400 flex  justify-center flex-cols gap-16   p-3 '>
                     <Link to='/Login'>Login</Link>
                     <Link to='/Register'>Register</Link>

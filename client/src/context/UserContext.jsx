@@ -9,12 +9,17 @@ export const UserContext =createContext()
 
 export function UserContextProvider({children}) {
     const[user , setUser] = useState(null);
+
     useEffect(() => {
+         (async () => {
         if(!user) {
-             axios.get('/profile').then((data) => {
-                  setUser(data.data)
-             })
+              const asyncTask = await axios.get('/profile')
+                  setUser(asyncTask.data)
+             
         }
+    })();
+         
+   
     } , [])
     return(
         <>
